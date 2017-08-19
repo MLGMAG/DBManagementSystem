@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="mydatabase@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+    <root id="1"/>
+    <schema id="2" parent="1" name="mydatabase">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sql_hw_011"/>
+    <schema id="7" parent="1" name="sys"/>
+    <table id="8" parent="2" name=" projects"/>
+    <table id="9" parent="2" name="companies"/>
+    <table id="10" parent="2" name="customers"/>
+    <table id="11" parent="2" name="developers"/>
+    <table id="12" parent="2" name="skills"/>
+    <column id="13" parent="8" name="id_projects">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="14" parent="8" name="id_dev">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="15" parent="8" name="projects">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="16" parent="8" name="id_developer_idx">
+      <ColNames>id_dev</ColNames>
+    </index>
+    <index id="17" parent="8" name="id_dev_idx">
+      <ColNames>id_dev</ColNames>
+    </index>
+    <key id="18" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_projects</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="19" parent="8" name="id_developer">
+      <ColNames>id_dev</ColNames>
+      <RefSchemaName>mydatabase</RefSchemaName>
+      <RefTableName>developers</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="20" parent="9" name="id_companie">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="21" parent="9" name="name_companie">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="22" parent="9" name="id_developed_projects">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="23" parent="9" name="id_project_idx">
+      <ColNames>id_developed_projects</ColNames>
+    </index>
+    <key id="24" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_companie</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="25" parent="9" name="id_developer_project">
+      <ColNames>id_developed_projects</ColNames>
+      <RefSchemaName>mydatabase</RefSchemaName>
+      <RefTableName> projects</RefTableName>
+      <RefColNames>id_projects</RefColNames>
+    </foreign-key>
+    <column id="26" parent="10" name="id_customers">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="27" parent="10" name="id_ordered_projects">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="10" name="id_companies_where_project_was_orderd">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="29" parent="10" name="id_of_companies_idx">
+      <ColNames>id_companies_where_project_was_orderd</ColNames>
+    </index>
+    <index id="30" parent="10" name="id_ordered_project_idx">
+      <ColNames>id_ordered_projects</ColNames>
+    </index>
+    <index id="31" parent="10" name="id_projects_idx">
+      <ColNames>id_ordered_projects</ColNames>
+    </index>
+    <key id="32" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_customers</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="33" parent="10" name="id_ordered_project">
+      <ColNames>id_ordered_projects</ColNames>
+      <RefSchemaName>mydatabase</RefSchemaName>
+      <RefTableName> projects</RefTableName>
+      <RefColNames>id_projects</RefColNames>
+    </foreign-key>
+    <foreign-key id="34" parent="10" name="id_companies_where_project_was_orderd">
+      <ColNames>id_companies_where_project_was_orderd</ColNames>
+      <RefSchemaName>mydatabase</RefSchemaName>
+      <RefTableName>companies</RefTableName>
+      <RefColNames>id_companie</RefColNames>
+    </foreign-key>
+    <column id="35" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="36" parent="11" name="First_name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="11" name="Second_name">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="11" name="age">
+      <Position>4</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="11" name="id_skills">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="40" parent="11" name="id_project">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="41" parent="11" name="id_projects_idx">
+      <ColNames>id_project</ColNames>
+    </index>
+    <index id="42" parent="11" name="id_skill_idx">
+      <ColNames>id_skills</ColNames>
+    </index>
+    <key id="43" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="44" parent="11" name="id_skills">
+      <ColNames>id_skills</ColNames>
+      <RefSchemaName>mydatabase</RefSchemaName>
+      <RefTableName>skills</RefTableName>
+      <RefColNames>id_skill</RefColNames>
+    </foreign-key>
+    <foreign-key id="45" parent="11" name="id_projects">
+      <ColNames>id_project</ColNames>
+      <RefSchemaName>mydatabase</RefSchemaName>
+      <RefTableName> projects</RefTableName>
+      <RefColNames>id_projects</RefColNames>
+    </foreign-key>
+    <column id="46" parent="12" name="id_skill">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="47" parent="12" name="id_dev">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="12" name="skills">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="49" parent="12" name="dev_id_idx">
+      <ColNames>id_dev</ColNames>
+    </index>
+    <key id="50" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_skill</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="51" parent="12" name="id_dev">
+      <ColNames>id_dev</ColNames>
+      <RefSchemaName>mydatabase</RefSchemaName>
+      <RefTableName>developers</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>
