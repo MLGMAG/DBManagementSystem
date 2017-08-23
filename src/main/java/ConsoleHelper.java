@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  */
 
-class ConsoleHelper {
+class ConsoleHelper extends CRUD_DAO {
 
     ConsoleHelper() {
 
@@ -46,19 +46,19 @@ class ConsoleHelper {
                         break;
 
                     case 1:
-                        new Create();
+                        create();
                         break;
 
                     case 2:
-                        new Read();
+                        read();
                         break;
 
                     case 3:
-                        new Update();
+                        update();
                         break;
 
                     case 4:
-                        new Delete();
+                        delete();
                         break;
 
                     case 5:
