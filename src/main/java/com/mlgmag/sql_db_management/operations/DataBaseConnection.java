@@ -1,4 +1,4 @@
-package CRUD_Operations;
+package com.mlgmag.sql_db_management.operations;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
