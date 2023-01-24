@@ -5,11 +5,6 @@ import com.mlgmag.sql.db_management_system.operations.Delete;
 import com.mlgmag.sql.db_management_system.operations.Read;
 import com.mlgmag.sql.db_management_system.operations.Update;
 
-/**
- *
- * Created by Mag on 23.08.2017.
- *
- */
 class CRUD_DAO {
 
     void delete() {
