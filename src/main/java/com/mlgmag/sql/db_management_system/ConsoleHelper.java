@@ -4,12 +4,6 @@ import com.mlgmag.sql.db_management_system.operations.*;
 
 import java.util.Scanner;
 
-/**
- *
- * Created by Mag on 17.08.2017.
- *
- */
-
 class ConsoleHelper extends CRUD_DAO {
 
     ConsoleHelper() {

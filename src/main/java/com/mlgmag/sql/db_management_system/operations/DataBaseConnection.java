@@ -4,11 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * Created by Mag on 17.08.2017.
- *
- */
 public class DataBaseConnection {
     private static  final String DataBaseName = "MyDataBase";
     private static final String URL = "jdbc:mysql://localhost:3306/MyDataBase?autoReconnect=true&useSSL=false";

@@ -7,11 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- *
- * Created by Mag on 17.08.2017.
- *
- */
 public class Update {
 
     public Update() {
