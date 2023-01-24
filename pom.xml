@@ -7,14 +7,20 @@
     <groupId>com.mlgmag.sql</groupId>
     <artifactId>db-management-system</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <mysql-connector-j.version>8.0.32</mysql-connector-j.version>
+        <java.version>1.8</java.version>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -24,7 +30,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>8.0.32</version>
+            <version>${mysql-connector-j.version}</version>
         </dependency>
     </dependencies>
 </project>
