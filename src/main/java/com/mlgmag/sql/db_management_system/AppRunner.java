@@ -1,4 +1,4 @@
-package com.mlgmag.sql_db_management;
+package com.mlgmag.sql.db_management_system;
 
 /**
  *
