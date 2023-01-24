@@ -1,6 +1,6 @@
-package com.mlgmag.sql_db_management;
+package com.mlgmag.sql.db_management_system;
 
-import com.mlgmag.sql_db_management.operations.*;
+import com.mlgmag.sql.db_management_system.operations.*;
 
 import java.util.Scanner;
 

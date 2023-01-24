@@ -1,4 +1,4 @@
-package com.mlgmag.sql_db_management.operations;
+package com.mlgmag.sql.db_management_system.operations;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,12 +12,13 @@ import java.util.Scanner;
  * Created by Mag on 17.08.2017.
  *
  */
-public class Update {
+public class Delete {
 
-    public Update() {
-        System.out.println("Which table you want update:");
+    public Delete() {
+        System.out.println("Note in which table you want delete:");
         StringBuilder ShowTables = new StringBuilder("SHOW TABLES FROM ");
-        StringBuilder SQLCommandUpdate = new StringBuilder("UPDATE ");
+        StringBuilder SQLCommandReadColumnLabel = new StringBuilder("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ");
+        StringBuilder SQLCommandDelete = new StringBuilder("DELETE FROM ");
         ShowTables.append(DataBaseConnection.getDataBaseName());
         try {
             DataBaseConnection DBC = new DataBaseConnection();
@@ -33,34 +34,23 @@ public class Update {
             }
             Scanner scan = new Scanner(System.in);
             int b = scan.nextInt();
-            SQLCommandUpdate.append(tableMap.get(b)).append(" ").append("SET ");
-            System.out.println("Chose column:");
-            System.out.println("Columns in table:");
-            int Numbers_of_Columns = 0;
-            StringBuilder SQLCommandReadColumnLabel = new StringBuilder("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ");
+            SQLCommandDelete.append(tableMap.get(b)).append(" WHERE ");
             SQLCommandReadColumnLabel.append("'").append(tableMap.get(b)).append("';");
-            resultSet = statement.executeQuery(String.valueOf(SQLCommandReadColumnLabel));
             Map<Integer, String> columnLabel = new HashMap<>();
+            resultSet = statement.executeQuery(String.valueOf(SQLCommandReadColumnLabel));
+            int Numbers_of_Columns = 1;
             while (resultSet.next()) {
                 columnLabel.put(Numbers_of_Columns, resultSet.getString("COLUMN_NAME"));
                 Numbers_of_Columns++;
             }
-            for (int i = 1; i < Numbers_of_Columns; i++) {
-                System.out.println(i + "." + columnLabel.get(i) + ";");
-            }
+            System.out.println("Enter " + columnLabel.get(1) + ":");
+            SQLCommandDelete.append(columnLabel.get(1)).append(" = '");
             b = scan.nextInt();
-            SQLCommandUpdate.append(columnLabel.get(b)).append(" = '");
-            System.out.println("Enter Updated " + columnLabel.get(b) + ":");
-            String NewInfo = scan.next();
-            SQLCommandUpdate.append(NewInfo).append("' WHERE ").append(columnLabel.get(0)).append(" = ");
-            System.out.println("Enter id which will be updated:");
-            b = scan.nextInt();
-            SQLCommandUpdate.append(b).append(";");
-            System.out.println("SQLCommand -->" + SQLCommandUpdate);
-            statement.execute(String.valueOf(SQLCommandUpdate));
+            SQLCommandDelete.append(b).append("';");
+            System.out.println("SQLCommand -->" + SQLCommandDelete);
+            statement.execute(String.valueOf(SQLCommandDelete));
         } catch (SQLException | NumberFormatException e) {
             System.out.println("Error:" + e);
-            e.printStackTrace();
         }
     }
 }

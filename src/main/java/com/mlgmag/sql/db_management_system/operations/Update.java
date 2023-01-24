@@ -1,4 +1,4 @@
-package com.mlgmag.sql_db_management.operations;
+package com.mlgmag.sql.db_management_system.operations;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +12,12 @@ import java.util.Scanner;
  * Created by Mag on 17.08.2017.
  *
  */
+public class Update {
 
-public class Read {
-
-    public Read() {
+    public Update() {
+        System.out.println("Which table you want update:");
         StringBuilder ShowTables = new StringBuilder("SHOW TABLES FROM ");
+        StringBuilder SQLCommandUpdate = new StringBuilder("UPDATE ");
         ShowTables.append(DataBaseConnection.getDataBaseName());
         try {
             DataBaseConnection DBC = new DataBaseConnection();
@@ -30,13 +31,13 @@ public class Read {
                 System.out.println(a + ":'" + resultSet.getString("Tables_in_MyDataBase") + "'");
                 a++;
             }
-            int Numbers_of_Columns = 1;
-            StringBuilder SQLCommandReadTable = new StringBuilder("SELECT * FROM ");
-            StringBuilder SQLCommandReadColumnLabel = new StringBuilder("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ");
-            System.out.println("Choose table which will be read:");
             Scanner scan = new Scanner(System.in);
             int b = scan.nextInt();
-            SQLCommandReadTable.append(tableMap.get(b)).append(";");
+            SQLCommandUpdate.append(tableMap.get(b)).append(" ").append("SET ");
+            System.out.println("Chose column:");
+            System.out.println("Columns in table:");
+            int Numbers_of_Columns = 0;
+            StringBuilder SQLCommandReadColumnLabel = new StringBuilder("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ");
             SQLCommandReadColumnLabel.append("'").append(tableMap.get(b)).append("';");
             resultSet = statement.executeQuery(String.valueOf(SQLCommandReadColumnLabel));
             Map<Integer, String> columnLabel = new HashMap<>();
@@ -44,17 +45,22 @@ public class Read {
                 columnLabel.put(Numbers_of_Columns, resultSet.getString("COLUMN_NAME"));
                 Numbers_of_Columns++;
             }
-            System.out.println("\n" + "SQLCommand --> " + SQLCommandReadTable);
-            System.out.println("\n" + "Table:" + tableMap.get(b) + "\n");
-            resultSet = statement.executeQuery(String.valueOf(SQLCommandReadTable));
-            while (resultSet.next()) {
-                for (int j = 1; j < Numbers_of_Columns; j++) {
-                    System.out.println(columnLabel.get(j) + ":" + resultSet.getString(columnLabel.get(j)));
-                }
-                System.out.print("\n");
+            for (int i = 1; i < Numbers_of_Columns; i++) {
+                System.out.println(i + "." + columnLabel.get(i) + ";");
             }
+            b = scan.nextInt();
+            SQLCommandUpdate.append(columnLabel.get(b)).append(" = '");
+            System.out.println("Enter Updated " + columnLabel.get(b) + ":");
+            String NewInfo = scan.next();
+            SQLCommandUpdate.append(NewInfo).append("' WHERE ").append(columnLabel.get(0)).append(" = ");
+            System.out.println("Enter id which will be updated:");
+            b = scan.nextInt();
+            SQLCommandUpdate.append(b).append(";");
+            System.out.println("SQLCommand -->" + SQLCommandUpdate);
+            statement.execute(String.valueOf(SQLCommandUpdate));
         } catch (SQLException | NumberFormatException e) {
             System.out.println("Error:" + e);
+            e.printStackTrace();
         }
     }
 }

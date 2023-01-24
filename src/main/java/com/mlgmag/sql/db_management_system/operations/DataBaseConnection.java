@@ -1,4 +1,4 @@
-package com.mlgmag.sql_db_management.operations;
+package com.mlgmag.sql.db_management_system.operations;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
