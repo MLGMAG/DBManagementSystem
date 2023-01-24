@@ -1,3 +1,5 @@
+package com.mlgmag.sql_db_management;
+
 /**
  *
  * Created by Mag on 17.08.2017.

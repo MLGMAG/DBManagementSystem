@@ -1,5 +1,6 @@
+package com.mlgmag.sql_db_management;
 
-import CRUD_Operations.*;
+import com.mlgmag.sql_db_management.operations.*;
 
 import java.util.Scanner;
 
