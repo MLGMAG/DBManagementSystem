@@ -1,6 +1,6 @@
 package com.mlgmag.sql.db_management_system;
 
-import com.mlgmag.sql.db_management_system.operations.*;
+import com.mlgmag.sql.db_management_system.service.DatabaseConnectionService;
 
 import java.util.Scanner;
 
@@ -61,10 +61,10 @@ class ConsoleHelper extends CRUD_DAO {
                         break;
 
                     case 6:
-                        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-                        System.out.println((char) 27 + "[33mURL:" + (char) 27 + "[0m" + DataBaseConnection.getURL());
+                        DatabaseConnectionService databaseConnectionService = DatabaseConnectionService.getInstance();
+                        System.out.println((char) 27 + "[33mURL:" + (char) 27 + "[0m" + databaseConnectionService.getURL());
                         System.out.print("Status:");
-                        dataBaseConnection.logConnectionStatus();
+                        databaseConnectionService.logConnectionStatus();
                         break;
 
                     default:

@@ -1,5 +1,7 @@
 package com.mlgmag.sql.db_management_system.operations;
 
+import com.mlgmag.sql.db_management_system.service.DatabaseConnectionService;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,9 +15,10 @@ public class Update {
         System.out.println("Which table you want update:");
         StringBuilder ShowTables = new StringBuilder("SHOW TABLES FROM ");
         StringBuilder SQLCommandUpdate = new StringBuilder("UPDATE ");
-        ShowTables.append(DataBaseConnection.getDataBaseName());
+
+        DatabaseConnectionService DBC = DatabaseConnectionService.getInstance();
+        ShowTables.append(DBC.getDataBaseName());
         try {
-            DataBaseConnection DBC = new DataBaseConnection();
             Statement statement = DBC.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(String.valueOf(ShowTables));
             System.out.println("Tables in DataBase:");

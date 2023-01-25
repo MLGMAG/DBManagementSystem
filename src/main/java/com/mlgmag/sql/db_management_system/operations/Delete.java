@@ -1,5 +1,7 @@
 package com.mlgmag.sql.db_management_system.operations;
 
+import com.mlgmag.sql.db_management_system.service.DatabaseConnectionService;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,9 +16,10 @@ public class Delete {
         StringBuilder ShowTables = new StringBuilder("SHOW TABLES FROM ");
         StringBuilder SQLCommandReadColumnLabel = new StringBuilder("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ");
         StringBuilder SQLCommandDelete = new StringBuilder("DELETE FROM ");
-        ShowTables.append(DataBaseConnection.getDataBaseName());
+
+        DatabaseConnectionService DBC = DatabaseConnectionService.getInstance();
+        ShowTables.append(DBC.getDataBaseName());
         try {
-            DataBaseConnection DBC = new DataBaseConnection();
             Statement statement = DBC.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(String.valueOf(ShowTables));
             System.out.println("Tables in DataBase:");
