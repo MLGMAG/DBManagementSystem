@@ -51,7 +51,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.mlgmag.sql.db_management_system.AppRunner</mainClass>
+                            <mainClass>com.mlgmag.sql.db_management_system.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
