@@ -1,5 +1,7 @@
 package com.mlgmag.sql.db_management_system.operations;
 
+import com.mlgmag.sql.db_management_system.service.DatabaseConnectionService;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,9 +13,10 @@ public class Read {
 
     public Read() {
         StringBuilder ShowTables = new StringBuilder("SHOW TABLES FROM ");
-        ShowTables.append(DataBaseConnection.getDataBaseName());
+
+        DatabaseConnectionService DBC = DatabaseConnectionService.getInstance();
+        ShowTables.append(DBC.getDataBaseName());
         try {
-            DataBaseConnection DBC = new DataBaseConnection();
             Statement statement = DBC.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(String.valueOf(ShowTables));
             System.out.println("Tables in DataBase:");
