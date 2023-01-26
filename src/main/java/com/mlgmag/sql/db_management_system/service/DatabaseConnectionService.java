@@ -1,6 +1,7 @@
 package com.mlgmag.sql.db_management_system.service;
 
 import com.mlgmag.sql.db_management_system.constants.ConfigNames;
+import com.mlgmag.sql.db_management_system.constants.DBConnectionStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,9 +10,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import static com.mlgmag.sql.db_management_system.constants.DBConnectionStatus.*;
+
 public class DatabaseConnectionService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DatabaseConnectionService.class);
+    private static final String CONNECTION_STATUS_MESSAGE_PATTERN = "URL: '%s'. Status: '%s'";
 
     private static DatabaseConnectionService instance;
 
@@ -48,14 +52,20 @@ public class DatabaseConnectionService {
     }
 
     public void logConnectionStatus() {
+        String status = getStatus();
+        String dbUrl = getURL();
+        String message = String.format(CONNECTION_STATUS_MESSAGE_PATTERN, dbUrl, status);
+        LOG.info(message);
+    }
+
+    private String getStatus() {
         try {
-            if (!connection.isClosed()) {
-                LOG.info("Connection is open");
-            } else {
-                LOG.info("Connection is closed");
-            }
+            boolean isValid = connection.isValid(0);
+            DBConnectionStatus dbConnectionStatus = isValid ? VALID : INVALID;
+            return dbConnectionStatus.getStatus();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return UNDEFINED.getStatus();
         }
     }
 
