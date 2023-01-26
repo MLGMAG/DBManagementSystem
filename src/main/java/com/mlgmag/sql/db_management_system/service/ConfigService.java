@@ -1,5 +1,6 @@
 package com.mlgmag.sql.db_management_system.service;
 
+import com.mlgmag.sql.db_management_system.util.ConfigUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,47 +9,48 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-import static java.util.Objects.isNull;
-
 public final class ConfigService {
-
-    public static final String FILEPATH_ENV_VAR = "configFilePath";
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigService.class);
 
-    private static final Properties PROPERTIES = new Properties();
+    private static ConfigService instance;
+
+    private final Properties properties = new Properties();
 
     private ConfigService() {
     }
 
+    public String getConfig(String configName) {
+        LOG.info("Retrieving the config '{}'", configName);
+        return properties.getProperty(configName);
+    }
+
+    public void clean() {
+        LOG.info("Config cleanup...");
+        properties.clear();
+    }
+
     public static void init() {
         LOG.info("Initialize configs...");
+        instance = new ConfigService();
 
-        String configFilePath = System.getProperty(FILEPATH_ENV_VAR);
-        if (isNull(configFilePath)) {
-            String message = String.format("Environment variable '%s' is not present", FILEPATH_ENV_VAR);
-            LOG.error(message);
-            throw new IllegalArgumentException(message);
-        }
-
+        String configFilePath = ConfigUtils.getConfigFilePath();
         LOG.info("The config path is '{}'", configFilePath);
 
+        getInstance().loadConfigs(configFilePath);
+    }
+
+    private void loadConfigs(String configFilePath) {
         File file = new File(configFilePath);
         try (FileReader fileReader = new FileReader(file)) {
-            PROPERTIES.load(fileReader);
+            properties.load(fileReader);
         } catch (IOException ex) {
             LOG.error("Could not load configs:", ex);
             throw new RuntimeException(ex);
         }
     }
 
-    public static void clean() {
-        LOG.info("Config cleanup...");
-        PROPERTIES.clear();
-    }
-
-    public static String getConfig(String configName) {
-        LOG.info("Retrieving the config '{}'", configName);
-        return PROPERTIES.getProperty(configName);
+    public static ConfigService getInstance() {
+        return instance;
     }
 }
