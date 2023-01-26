@@ -11,10 +11,12 @@ public class DataBaseConnectionInfo {
     private final String password;
 
     public DataBaseConnectionInfo() {
-        this.databaseName = ConfigService.getConfig(ConfigNames.DB_NAME_CONFIG);
-        this.url = ConfigService.getConfig(ConfigNames.DB_URL_CONFIG);
-        this.username = ConfigService.getConfig(ConfigNames.DB_USERNAME_CONFIG);
-        this.password = ConfigService.getConfig(ConfigNames.DB_PASSWORD_CONFIG);
+        ConfigService configService = ConfigService.getInstance();
+
+        this.databaseName = configService.getConfig(ConfigNames.DB_NAME_CONFIG);
+        this.url = configService.getConfig(ConfigNames.DB_URL_CONFIG);
+        this.username = configService.getConfig(ConfigNames.DB_USERNAME_CONFIG);
+        this.password = configService.getConfig(ConfigNames.DB_PASSWORD_CONFIG);
     }
 
     public String getDatabaseName() {
