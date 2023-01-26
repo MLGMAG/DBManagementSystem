@@ -1,14 +1,13 @@
 package com.mlgmag.sql.db_management_system.service;
 
-import com.mlgmag.sql.db_management_system.constants.ConfigNames;
 import com.mlgmag.sql.db_management_system.constants.DBConnectionStatus;
+import com.mlgmag.sql.db_management_system.model.DataBaseConnectionInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Objects;
 
 import static com.mlgmag.sql.db_management_system.constants.DBConnectionStatus.*;
 
@@ -19,18 +18,19 @@ public class DatabaseConnectionService {
 
     private static DatabaseConnectionService instance;
 
-    private final String databaseName;
-    private final String url;
-    private final String username;
-    private final String password;
+    private final DataBaseConnectionInfo dataBaseConnectionInfo;
 
     private Connection connection;
 
     private DatabaseConnectionService() {
-        this.databaseName = ConfigService.getConfig(ConfigNames.DB_NAME_CONFIG);
-        this.url = ConfigService.getConfig(ConfigNames.DB_URL_CONFIG);
-        this.username = ConfigService.getConfig(ConfigNames.DB_USERNAME_CONFIG);
-        this.password = ConfigService.getConfig(ConfigNames.DB_PASSWORD_CONFIG);
+        this.dataBaseConnectionInfo = new DataBaseConnectionInfo();
+        establishConnection(dataBaseConnectionInfo);
+    }
+
+    private void establishConnection(DataBaseConnectionInfo dataBaseConnectionInfo) {
+        String url = dataBaseConnectionInfo.getUrl();
+        String username = dataBaseConnectionInfo.getUsername();
+        String password = dataBaseConnectionInfo.getPassword();
 
         try {
             connection = DriverManager.getConnection(url, username, password);
@@ -40,11 +40,7 @@ public class DatabaseConnectionService {
     }
 
     public String getDataBaseName() {
-        return databaseName;
-    }
-
-    public String getURL() {
-        return url;
+        return dataBaseConnectionInfo.getDatabaseName();
     }
 
     public Connection getConnection() {
@@ -53,7 +49,7 @@ public class DatabaseConnectionService {
 
     public void logConnectionStatus() {
         String status = getStatus();
-        String dbUrl = getURL();
+        String dbUrl = dataBaseConnectionInfo.getUrl();
         String message = String.format(CONNECTION_STATUS_MESSAGE_PATTERN, dbUrl, status);
         LOG.info(message);
     }
@@ -69,10 +65,11 @@ public class DatabaseConnectionService {
         }
     }
 
+    public static void init() {
+        instance = new DatabaseConnectionService();
+    }
+
     public static DatabaseConnectionService getInstance() {
-        if (Objects.isNull(instance)) {
-            instance = new DatabaseConnectionService();
-        }
         return instance;
     }
 }
