@@ -61,10 +61,7 @@ class ConsoleHelper extends CRUD_DAO {
                         break;
 
                     case 6:
-                        DatabaseConnectionService databaseConnectionService = DatabaseConnectionService.getInstance();
-                        System.out.println((char) 27 + "[33mURL:" + (char) 27 + "[0m" + databaseConnectionService.getURL());
-                        System.out.print("Status:");
-                        databaseConnectionService.logConnectionStatus();
+                        DatabaseConnectionService.getInstance().logConnectionStatus();
                         break;
 
                     default:
