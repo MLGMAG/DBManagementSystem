@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_PATH" value="logs"/>
+    <property name="PATTERN" value="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+
+    <appender name="ALL" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/dbManagementSystem.log</file>
+        <append>false</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="ALL"/>
+    </root>
+</configuration>

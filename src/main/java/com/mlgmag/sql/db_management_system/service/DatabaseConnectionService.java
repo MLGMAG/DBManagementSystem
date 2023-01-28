@@ -34,6 +34,7 @@ public class DatabaseConnectionService {
 
         try {
             connection = DriverManager.getConnection(url, username, password);
+            LOG.info("Connection is established");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -47,11 +48,11 @@ public class DatabaseConnectionService {
         return connection;
     }
 
-    public void logConnectionStatus() {
+    public void printConnectionStatus() {
         String status = getStatus();
         String dbUrl = dataBaseConnectionInfo.getUrl();
         String message = String.format(CONNECTION_STATUS_MESSAGE_PATTERN, dbUrl, status);
-        LOG.info(message);
+        System.out.println(message);
     }
 
     private String getStatus() {
