@@ -1,4 +1,4 @@
-package com.mlgmag.sql.db_management_system.operations;
+package com.mlgmag.sql.db_management_system.service;
 
 import com.mlgmag.sql.db_management_system.dao.DatabaseDAO;
 import com.mlgmag.sql.db_management_system.model.TableData;
@@ -7,10 +7,18 @@ import com.mlgmag.sql.db_management_system.util.ListUtils;
 import java.util.List;
 import java.util.Scanner;
 
-public class Read {
+public class OperationService {
 
-    public Read() {
-        List<String> allTables = DatabaseDAO.getInstance().getAllTablesFromDB();
+    private final DatabaseDAO databaseDAO;
+
+    private static OperationService instance;
+
+    private OperationService() {
+        databaseDAO = DatabaseDAO.getInstance();
+    }
+
+    public void read() {
+        List<String> allTables = databaseDAO.getAllTablesFromDB();
 
         System.out.println("\nTables:");
         ListUtils.addNumberPrefixToListItems(allTables).forEach(System.out::println);
@@ -20,7 +28,16 @@ public class Read {
         int tableIndex = scan.nextInt();
 
         String table = allTables.get(tableIndex);
-        TableData tableData = DatabaseDAO.getInstance().getTableData(table);
+        TableData tableData = databaseDAO.getTableData(table);
         System.out.print(tableData);
     }
+
+    public static void init() {
+        instance = new OperationService();
+    }
+
+    public static OperationService getInstance() {
+        return instance;
+    }
+
 }

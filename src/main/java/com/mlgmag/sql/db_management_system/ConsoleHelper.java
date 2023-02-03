@@ -1,6 +1,7 @@
 package com.mlgmag.sql.db_management_system;
 
 import com.mlgmag.sql.db_management_system.service.DatabaseConnectionService;
+import com.mlgmag.sql.db_management_system.service.OperationService;
 
 import java.util.Scanner;
 
@@ -45,7 +46,7 @@ class ConsoleHelper extends CRUD_DAO {
                         break;
 
                     case 2:
-                        read();
+                        OperationService.getInstance().read();
                         break;
 
                     case 3:

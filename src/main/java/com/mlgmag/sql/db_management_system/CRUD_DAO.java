@@ -2,7 +2,6 @@ package com.mlgmag.sql.db_management_system;
 
 import com.mlgmag.sql.db_management_system.operations.Create;
 import com.mlgmag.sql.db_management_system.operations.Delete;
-import com.mlgmag.sql.db_management_system.operations.Read;
 import com.mlgmag.sql.db_management_system.operations.Update;
 
 class CRUD_DAO {
@@ -13,10 +12,6 @@ class CRUD_DAO {
 
     void create(){
         new Create();
-    }
-
-    void read(){
-        new Read();
     }
 
     void update(){
